@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
-import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -24,6 +22,9 @@ import Select from "@material-ui/core/Select";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
+
+import AppBarComponent from "./AppBar"
+import EventList from "./components/EventList"
 
 import { auth, db } from "./firebase";
 
@@ -73,29 +74,6 @@ export function App(props) {
     return unsubscribe;
   }, [user]);
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        props.history.push("/");
-      })
-      .catch(error => {
-        alert(error.message);
-      });
-  };
-
-  const handleEnterPressed = event => {
-    if (event.key === "Enter") {
-      db.collection("users")
-        .doc(user.uid)
-        .collection("tasks")
-        .add({ text: new_task, checked: false })
-        .then(() => {
-          setNewTask("");
-        });
-    }
-  };
-
   const handleAddTask = () => {
     db.collection("users")
       .doc(user.uid)
@@ -144,23 +122,7 @@ export function App(props) {
 
   return (
     <div>
-      <AppBar position="static" color="primary">
-        <Toolbar style={{ display: "flex" }}>
-          <Typography
-            variant="h6"
-            color="inherit"
-            style={{ flexGrow: 1, marginleft: 30 }}
-          >
-            To Do List
-          </Typography>
-          <Typography color="inherit" style={{ marginRight: 30 }}>
-            Hi! {user.email}
-          </Typography>
-          <Button color="inherit" onClick={handleSignOut}>
-            Sign Out
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <AppBarComponent/>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 30 }}>
         <Paper style={{ width: 700, padding: 30 }}>
@@ -184,7 +146,6 @@ export function App(props) {
               ADD
             </Button>
           </div>
-
           <List style={{ MarginTop: 30 }} subheader={<li />}>
             {tasks.filter(value => value.checked === false).length > 0
               ? "Incomplete Tasks"
@@ -281,6 +242,9 @@ export function App(props) {
               })}
           </List>
         </Paper>
+
+        <EventList tasks = {tasks} user = {user}/>
+
       </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
@@ -301,6 +265,7 @@ export function App(props) {
           </Button>
         </DialogActions>
       </Dialog>
+      
     </div>
   );
 }
