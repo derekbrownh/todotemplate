@@ -24,7 +24,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import AppBarComponent from "./AppBar"
-import EventList from "./components/EventList"
+import EventList from "./components/Event"
 
 import { auth, db } from "./firebase";
 
@@ -32,9 +32,10 @@ export function App(props) {
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [new_task, setNewTask] = useState("");
-  // const [new_priority, setPriority] = useState("");
   const [open, setOpen] = useState(false);
   const [taskID, setTaskID] = useState("");
+
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(u => {
@@ -49,6 +50,7 @@ export function App(props) {
     return unsubscribe;
   }, [props.history]);
 
+  console.log(user)
   useEffect(() => {
     let unsubscribe;
 
@@ -74,6 +76,26 @@ export function App(props) {
     return unsubscribe;
   }, [user]);
 
+  useEffect(() => {
+    let unsubscribe;
+
+    if (user) {
+      unsubscribe = db
+        .collection("events")
+        .onSnapshot(snapshot => {
+          const updated_events = [];
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            updated_events.push({
+              name: data.name,
+              attendees: data.attendees
+            });
+          });
+          setEvents(updated_events);
+        });
+    }
+    return unsubscribe;
+  }, [user]);
   const handleAddTask = () => {
     db.collection("users")
       .doc(user.uid)
@@ -123,8 +145,13 @@ export function App(props) {
   return (
     <div>
       <AppBarComponent/>
-
+      <div style={{ display: "flex", marginTop: 30, flexDirection: "column", alignItems: "center" }}>
+      {events.map(events => {
+        return <EventList user = {user} events = {events}/>
+      })}
+      </div>
       <div style={{ display: "flex", justifyContent: "center", marginTop: 30 }}>
+        
         <Paper style={{ width: 700, padding: 30 }}>
           <Typography variant="h6">To Do List</Typography>
           <div style={{ display: "flex", marginTop: 30 }}>
@@ -242,8 +269,6 @@ export function App(props) {
               })}
           </List>
         </Paper>
-
-        <EventList tasks = {tasks} user = {user}/>
 
       </div>
       <Dialog open={open} onClose={handleClose}>
