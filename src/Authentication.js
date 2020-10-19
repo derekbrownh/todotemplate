@@ -172,6 +172,7 @@ export function SignUp(props) {
           <TextField
             placeholder="Email"
             fullWidth="true"
+            style={{ marginTop: 30 }}
             value={email}
             onChange={e => {
               setEmail(e.target.value);

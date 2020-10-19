@@ -127,7 +127,7 @@ export default function Event(props) {
                 className={(props.isRSVP === true || checkIsFull() === true) ? 'classes.hidden' : ''}
 
                 onClick={addRSVP}
-                disabled={props.isRSVP === true || checkIsFull() === true}  // If they are RSVPed anywhere, ddisable OR if it is full, disable it
+                disabled={props.isRSVP === true || checkIsFull() === true}  // If they are RSVPed anywhere, disable OR if it is full, disable it
               >
                 RSVP
               </Button>
