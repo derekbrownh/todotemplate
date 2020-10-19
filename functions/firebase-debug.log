@@ -1,0 +1,71 @@
+[debug] [2020-10-18T07:41:36.199Z] ----------------------------------------------------------------------
+[debug] [2020-10-18T07:41:36.202Z] Command:       /usr/local/bin/node /usr/local/bin/firebase functions:shell
+[debug] [2020-10-18T07:41:36.202Z] CLI Version:   8.12.1
+[debug] [2020-10-18T07:41:36.202Z] Platform:      darwin
+[debug] [2020-10-18T07:41:36.202Z] Node Version:  v10.16.3
+[debug] [2020-10-18T07:41:36.203Z] Time:          Sun Oct 18 2020 01:41:36 GMT-0600 (Mountain Daylight Time)
+[debug] [2020-10-18T07:41:36.203Z] ----------------------------------------------------------------------
+[debug] [2020-10-18T07:41:36.203Z] 
+[debug] [2020-10-18T07:41:36.220Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-18T07:41:36.220Z] > authorizing via signed-in user
+[debug] [2020-10-18T07:41:36.221Z] [iam] checking project todo-3534f for permissions ["firebase.projects.get"]
+[debug] [2020-10-18T07:41:36.223Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-10-18T07:41:36.223Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-10-18T07:41:36.435Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Sun, 18 Oct 2020 07:41:36 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-18T07:41:36.469Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-3534f:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-10-18T07:41:36.774Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 18 Oct 2020 07:41:36 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=132","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-18T07:41:36.775Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project todo-3534f:
+
+  firebase.projects.get
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10" {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"8\" doesn't match your global version \"10\""}}
+[debug] [2020-10-18T07:41:36.788Z] defaultcredentials: writing to file /Users/nathanclark/.config/firebase/nathanmclark23_gmail_com_application_default_credentials.json
+[debug] [2020-10-18T07:41:36.790Z] DEBUG: Setting GAC to /Users/nathanclark/.config/firebase/nathanmclark23_gmail_com_application_default_credentials.json
+[debug] [2020-10-18T07:41:36.799Z] [functions] Watching "/Users/nathanclark/fhe/final/functions" for Cloud Functions...
+[debug] [2020-10-18T07:41:36.810Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-10-18T07:41:36.810Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-10-18T07:41:36.811Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-10-18T07:41:36.811Z] DEBUG: [worker-~diagnostic~-6712f95d-71cc-427c-b033-6e119019690f]: Assigning socketPath: /var/folders/fg/y72983_s4k765q66n6drtlc80000gp/T/fire_emu_82975.sock
+[debug] [2020-10-18T07:41:36.812Z] DEBUG: [worker-~diagnostic~-6712f95d-71cc-427c-b033-6e119019690f]: BUSY
+[debug] [2020-10-18T07:41:37.235Z] DEBUG: [runtime-status] [82975] Functions runtime initialized. {"cwd":"/Users/nathanclark/fhe/final/functions","node_version":"10.16.3"}
+[debug] [2020-10-18T07:41:37.236Z] DEBUG: [runtime-status] [82975] Disabled runtime features: undefined
+[debug] [2020-10-18T07:41:37.239Z] DEBUG: [runtime-status] [82975] Resolved module firebase-admin {"declared":true,"installed":true,"version":"7.0.0","resolution":"/Users/nathanclark/fhe/final/functions/node_modules/firebase-admin/lib/index.js"}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory. {"metadata":{"emulator":{"name":"functions"},"message":"The Cloud Functions emulator requires the module \"firebase-admin\" to be version >8.9.0 so your version is too old. You can probably fix this by running \"npm install firebase-admin@latest\" in your functions directory."}}
+[debug] [2020-10-18T07:41:37.240Z] [functions] Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-10-18T07:41:37.259Z] DEBUG: [worker-~diagnostic~-6712f95d-71cc-427c-b033-6e119019690f]: exited
+[debug] [2020-10-18T07:41:37.259Z] DEBUG: [worker-~diagnostic~-6712f95d-71cc-427c-b033-6e119019690f]: FINISHED
+[debug] [2020-10-18T07:42:49.821Z] ----------------------------------------------------------------------
+[debug] [2020-10-18T07:42:49.823Z] Command:       /usr/local/bin/node /usr/local/bin/firebase functions:shell
+[debug] [2020-10-18T07:42:49.824Z] CLI Version:   8.12.1
+[debug] [2020-10-18T07:42:49.825Z] Platform:      darwin
+[debug] [2020-10-18T07:42:49.825Z] Node Version:  v10.16.3
+[debug] [2020-10-18T07:42:49.826Z] Time:          Sun Oct 18 2020 01:42:49 GMT-0600 (Mountain Daylight Time)
+[debug] [2020-10-18T07:42:49.826Z] ----------------------------------------------------------------------
+[debug] [2020-10-18T07:42:49.826Z] 
+[debug] [2020-10-18T07:42:49.843Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-18T07:42:49.843Z] > authorizing via signed-in user
+[debug] [2020-10-18T07:42:49.843Z] [iam] checking project todo-3534f for permissions ["firebase.projects.get"]
+[debug] [2020-10-18T07:42:49.847Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-3534f:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-10-18T07:42:50.347Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 18 Oct 2020 07:42:50 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=278","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-18T07:42:50.350Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project todo-3534f:
+
+  firebase.projects.get
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10" {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"8\" doesn't match your global version \"10\""}}
+[debug] [2020-10-18T07:42:50.362Z] defaultcredentials: writing to file /Users/nathanclark/.config/firebase/nathanmclark23_gmail_com_application_default_credentials.json
+[debug] [2020-10-18T07:42:50.365Z] DEBUG: Setting GAC to /Users/nathanclark/.config/firebase/nathanmclark23_gmail_com_application_default_credentials.json
+[debug] [2020-10-18T07:42:50.374Z] [functions] Watching "/Users/nathanclark/fhe/final/functions" for Cloud Functions...
+[debug] [2020-10-18T07:42:50.390Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-10-18T07:42:50.391Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-10-18T07:42:50.391Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-10-18T07:42:50.391Z] DEBUG: [worker-~diagnostic~-c91b6077-48a3-4dd8-a619-87226466b610]: Assigning socketPath: /var/folders/fg/y72983_s4k765q66n6drtlc80000gp/T/fire_emu_83571.sock
+[debug] [2020-10-18T07:42:50.392Z] DEBUG: [worker-~diagnostic~-c91b6077-48a3-4dd8-a619-87226466b610]: BUSY
+[debug] [2020-10-18T07:42:50.782Z] DEBUG: [runtime-status] [83571] Functions runtime initialized. {"cwd":"/Users/nathanclark/fhe/final/functions","node_version":"10.16.3"}
+[debug] [2020-10-18T07:42:50.783Z] DEBUG: [runtime-status] [83571] Disabled runtime features: undefined
+[debug] [2020-10-18T07:42:50.786Z] DEBUG: [runtime-status] [83571] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.2.0","resolution":"/Users/nathanclark/fhe/final/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-10-18T07:42:50.787Z] DEBUG: [runtime-status] [83571] Resolved module firebase-functions {"declared":true,"installed":true,"version":"2.3.1","resolution":"/Users/nathanclark/fhe/final/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-functions" to be version >3.3.0 so your version is too old. You can probably fix this by running "npm install firebase-functions@latest" in your functions directory. {"metadata":{"emulator":{"name":"functions"},"message":"The Cloud Functions emulator requires the module \"firebase-functions\" to be version >3.3.0 so your version is too old. You can probably fix this by running \"npm install firebase-functions@latest\" in your functions directory."}}
+[debug] [2020-10-18T07:42:50.788Z] [functions] Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-10-18T07:42:50.806Z] DEBUG: [worker-~diagnostic~-c91b6077-48a3-4dd8-a619-87226466b610]: exited
+[debug] [2020-10-18T07:42:50.806Z] DEBUG: [worker-~diagnostic~-c91b6077-48a3-4dd8-a619-87226466b610]: FINISHED
