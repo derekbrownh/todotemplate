@@ -89,6 +89,7 @@ export function SignUp(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("")
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(u => {
@@ -106,8 +107,12 @@ export function SignUp(props) {
       .createUserWithEmailAndPassword(email, password).then((res) => {
         const user = auth.currentUser;
         return user.updateProfile({
-          displayName: fullName
+          displayName: fullName,
+          phoneNumber: phone
         })
+            user.updatePhoneNumber({
+
+            })
       })      
       .catch(error => {
         alert(error.message);
@@ -149,6 +154,28 @@ export function SignUp(props) {
   //     });
 
   // };
+
+  var provider = new auth.GoogleAuthProvider();
+
+  const handleSignUpGoogle = () => {}
+
+  auth.signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+
   return (
     <div>
       <AppBar position="static" color="primary">
@@ -167,6 +194,15 @@ export function SignUp(props) {
             value={fullName}
             onChange={e => {
               setFullName(e.target.value);
+            }}
+          />
+          <TextField
+            placeholder="Phone"
+            fullWidth="true"
+            style={{ marginTop: 30 }}
+            value={phone}
+            onChange={e => {
+              setPhone(e.target.value);
             }}
           />
           <TextField
@@ -202,6 +238,9 @@ export function SignUp(props) {
 
             <Button variant="contained" color="primary" onClick={handleSignUp}>
               Sign Up
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSignUpGoogle}>
+              Sign up with Google
             </Button>
           </div>
         </Paper>

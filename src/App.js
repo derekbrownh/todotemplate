@@ -112,7 +112,7 @@ export function App(props) {
     return <div />;
   }
 
-  console.log(isRSVPed);
+  console.log(user);
 
   return (
     <div>

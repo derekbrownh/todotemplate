@@ -34,9 +34,18 @@ import Fade from '@material-ui/core/Fade';
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  wrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    marginBottom: 25,
     maxWidth: 345,
-    marginBottom: 25
+    minWidth: 345,
+    padding: 0,
+    margin: 0
+  },
+  card: {
+    width: '100%',
   },
   media: {
     height: 140,
@@ -57,10 +66,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Event(props) {
   const classes = useStyles();
-  let [seeAttendees, setSeeAttendees] = useState(false);
+  const [seeAttendees, setSeeAttendees] = useState(false);
+
+  const RSVP = 'false'
 
 
   function isRSVPedForThisEvent() {
+    if (props.event.attendees === undefined) return false;
+    for (const j in props.event.attendees) {
+      if (props.event.attendees[j].UID === props.user.uid) {
+        return true
+      }
+    }
+    return false
+  }
+
+  function isRSVPedForThisEventtest() {
     if (props.event.attendees === undefined) return false;
     for (const j in props.event.attendees) {
       if (props.event.attendees[j].UID === props.user.uid) {
@@ -97,12 +118,14 @@ export default function Event(props) {
 
   console.log(props.user.displayName)
     return(
-          <Card className={classes.root}>
-            <CardActionArea>
+      <div className={classes.wrapper}>
+          <Card className={classes.card} >
+            <CardActionArea >
               <CardMedia
                 className={classes.media}
                 image={props.event.pictureURL}
                 title="Awesome Image"
+                
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -118,12 +141,17 @@ export default function Event(props) {
                   {props.event.description}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  There is a {props.event.capacity} person maximum
+                  Attendance Capacity {props.event.attendees.length}/{props.event.capacity}
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary"
+
+            {(() => {
+              switch(RSVP) {
+                case 'true':
+                    return(
+                      <Button size="small" color="primary"
                 className={(props.isRSVP === true || checkIsFull() === true) ? 'classes.hidden' : ''}
 
                 onClick={addRSVP}
@@ -131,12 +159,37 @@ export default function Event(props) {
               >
                 RSVP
               </Button>
-              <Button size="small" color="primary"
+                    )
+                case 'false':
+                  return(
+                    <Button size="small" color="primary"
                 onClick={deleteRSVP}
                 disabled={isRSVPedForThisEvent() === false}  // If they arent RSVPed for this event, dont allow them allow them to delete
               >
                 Delete RSVP
               </Button>
+                  )
+              }
+
+            })}
+            
+              {isRSVPedForThisEvent()? (
+                <Button size="small" color="primary"
+                onClick={deleteRSVP}
+                disabled={isRSVPedForThisEvent() === false}  // If they arent RSVPed for this event, dont allow them allow them to delete
+              >
+                Delete RSVP
+              </Button>
+              ) : (
+                <Button size="small" color="primary"
+                className={(props.isRSVP === true || checkIsFull() === true) ? 'classes.hidden' : ''}
+
+                onClick={addRSVP}
+                disabled={props.isRSVP === true || checkIsFull() === true}  // If they are RSVPed anywhere, disable OR if it is full, disable it
+              >
+                RSVP
+              </Button>
+              )}
 
             {/* <Button size="small" color="primary"
                 // onClick={seeAttendees = !seeAttendees}
@@ -176,5 +229,6 @@ export default function Event(props) {
 
 
           </Card>
+          </div>
     )
 }
