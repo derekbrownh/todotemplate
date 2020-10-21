@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { auth, db } from "./firebase";
+import { auth } from "./firebase";
 
 export function SignIn(props) {
   const [email, setEmail] = useState("");
@@ -85,7 +85,6 @@ export function SignIn(props) {
 }
 
 export function SignUp(props) {
-  const [user, setUser]= useState(null)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");

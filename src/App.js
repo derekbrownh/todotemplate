@@ -25,6 +25,7 @@ export function App(props) {
   const [tasks, setTasks] = useState([]);
   const [events, setEvents] = useState([])
   let [isRSVPed, setRSVPBoolean] = useState(true)
+  const [admin, setAdmin] = useState(false)
 
   function isUserCurrentlyRSVPed(events) {
     for (const i in events) {
@@ -105,6 +106,28 @@ export function App(props) {
     return query;
   }, [user]);
 
+  useEffect(() => { 
+    let query;
+  
+    if (user) {
+      query = db
+        .collection("users")
+        .doc(user.uid)
+        .collection('admin')
+        .onSnapshot(snapshot => {  // onSnapshot method means you constantly listen to a document!!!
+          const updated_admin = false;
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            updated_admin.push({
+              admin: data.admin,
+            });
+          });
+          setAdmin(updated_admin);
+        });
+    }
+    return query;
+  }, [user]);
+
 
   // If the user is not valid or doesn't exist, return an 
   // empty div instead of what should be in the page
@@ -112,11 +135,11 @@ export function App(props) {
     return <div />;
   }
 
-  console.log(user);
+  console.log(admin);
 
   return (
     <div>
-      <AppBarComponent user = {user}/>
+      <AppBarComponent user = {user} admin = {admin.admin}/>
       <div style={{ display: "flex", marginTop: 30, flexDirection: "column", alignItems: "center" }}>
       {events.map(events => {
         return <EventList user = {user} event = {events} isRSVP = {isRSVPed}/>   // This is currently giving the red warning
