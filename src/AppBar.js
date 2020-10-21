@@ -20,6 +20,7 @@ export default function AppBarComponent(props) {
             alert(error.message);
           });
       };
+console.log(props.user)
 
     return(
 

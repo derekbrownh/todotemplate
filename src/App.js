@@ -116,7 +116,7 @@ export function App(props) {
 
   return (
     <div>
-      <AppBarComponent/>
+      <AppBarComponent user = {user}/>
       <div style={{ display: "flex", marginTop: 30, flexDirection: "column", alignItems: "center" }}>
       {events.map(events => {
         return <EventList user = {user} event = {events} isRSVP = {isRSVPed}/>   // This is currently giving the red warning
