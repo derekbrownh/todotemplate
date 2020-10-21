@@ -23,27 +23,6 @@ export default function AppBarComponent(props) {
           });
       };
 
-useEffect(() => { 
-  let query;
-
-  if (props.user) {
-    query = db
-      .collection("users")
-      .onSnapshot(snapshot => {  // onSnapshot method means you constantly listen to a document!!!
-        const updated_admin = [];
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          updated_admin.push({
-            admin: data.admin,
-          });
-        });
-        setAdmin(updated_admin);
-      });
-  }
-  return query;
-}, [props.user]);
-
-console.log(admin.admin)
     return(
 
 <AppBar position="static" color="primary">
@@ -55,7 +34,7 @@ console.log(admin.admin)
   >
     67th Ward FHE
   </Typography>
-  {/* {props.user.admin} */}
+
   <EditIcon color = 'secondary'/>
   <Button color="inherit" onClick={handleSignOut}>
     Sign Out
