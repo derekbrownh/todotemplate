@@ -88,7 +88,7 @@ export function SignUp(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("")
+  const [phoneNumber, setPhoneNumber] = useState("")
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(u => {
@@ -107,7 +107,7 @@ export function SignUp(props) {
         const user = auth.currentUser;
         return user.updateProfile({
           displayName: fullName,
-          phoneNumber: phone
+          // phoneNumber: phone
         })
             user.updatePhoneNumber({
 
@@ -115,65 +115,63 @@ export function SignUp(props) {
       })      
       .catch(error => {
         alert(error.message);
-      })
-      // .then(user => {
-      //   user.updateProfile({
-      //     displayName: "nathan"
-      //   })
-      
-      // })
-      
-
-      // user.updateProfile({
-      //   name: "nathan"
-      // })
-      // .then(() => {
-      //   db.collection("users")
-      //     .doc(auth.currentUser.uid)
-      //     .add({ displayName: fullName })
-      //     .then(() => {
-      //       setFullName("");
-      //     });
-      // })
-      
+      }) 
   };
 
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then(function(user) {
-  //       user.updateProfile({
-  //         displayName: fullName
-  //       }).then(function() {
-  //         // Update successful.
-  //       })
-  //     })
-  //     .catch(error => {
-  //       alert(error.message);
-  //     });
+//   auth.languageCode = 'it'
 
-  // };
+//   window.recaptchaVerifier = new auth.RecaptchaVerifier('sign-in-button', {
+//     'size': 'invisible',
+//     'callback': function(response) {
+//       // reCAPTCHA solved, allow signInWithPhoneNumber.
+//       //onSignInSubmit();
+//     }
+//   });
 
-  var provider = new auth.GoogleAuthProvider();
 
-  const handleSignUpGoogle = () => {}
+// var appVerifier = window.recaptchaVerifier;
+// auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+//     .then(function (confirmationResult) {
+//       // SMS sent. Prompt user to type the code from the message, then sign the
+//       // user in with confirmationResult.confirm(code).
+//       window.confirmationResult = confirmationResult;
+      
+//     }).catch(function (error) {
+//       // Error; SMS not sent
+//       // ...
+      
+//     });
+  
+//     //var code = getCodeFromUserInput();
+//     confirmationResult.confirm(code).then(function (result) {
+//       // User signed in successfully.
+//       var user = result.user;
+//       // ...
+//     }).catch(function (error) {
+//       // User couldn't sign in (bad verification code?)
+//       // ...
+//     });
 
-  auth.signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
+  // var provider = new auth.GoogleAuthProvider();
+
+  // const handleSignUpGoogle = () => {}
+
+  // auth.signInWithPopup(provider).then(function(result) {
+  //   // This gives you a Google Access Token. You can use it to access the Google API.
+  //   var token = result.credential.accessToken;
+  //   // The signed-in user info.
+  //   var user = result.user;
+  //   // ...
+  // }).catch(function(error) {
+  //   // Handle Errors here.
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   // The email of the user's account used.
+  //   var email = error.email;
+  //   // The firebase.auth.AuthCredential type that was used.
+  //   var credential = error.credential;
+  //   // ...
+  // });
 
   return (
     <div>
@@ -199,9 +197,9 @@ export function SignUp(props) {
             placeholder="Phone"
             fullWidth="true"
             style={{ marginTop: 30 }}
-            value={phone}
+            value={phoneNumber}
             onChange={e => {
-              setPhone(e.target.value);
+              setPhoneNumber(e.target.value);
             }}
           />
           <TextField
@@ -238,8 +236,11 @@ export function SignUp(props) {
             <Button variant="contained" color="primary" onClick={handleSignUp}>
               Sign Up
             </Button>
-            <Button variant="contained" color="primary" onClick={handleSignUpGoogle}>
+            {/* <Button variant="contained" color="primary" onClick={handleSignUpGoogle}>
               Sign up with Google
+            </Button> */}
+            <Button variant="contained" color="primary" onClick={handleSignUp}>
+              Sign Up with Phone Number
             </Button>
           </div>
         </Paper>

@@ -35,7 +35,7 @@ export default function AppBarComponent(props) {
     67th Ward FHE
   </Typography>
 
-  <EditIcon color = 'secondary'/>
+  {/* <EditIcon color = 'secondary'/> */}
   <Button color="inherit" onClick={handleSignOut}>
     Sign Out
   </Button>

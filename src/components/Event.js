@@ -13,6 +13,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -48,6 +53,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Event(props) {
   const classes = useStyles();
   const [seeAttendees, setSeeAttendees] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log("handleClose")
+    setOpen(false);
+  };
 
   const RSVP = 'false'
 
@@ -94,8 +109,19 @@ export default function Event(props) {
       .doc(props.event.id)
       .update({
         attendees: firebase.firestore.FieldValue.arrayRemove({ UID: props.user.uid, name: props.user.displayName})
-      })
+      }).then(console.log('testing'))
+      // .then(setOpen(false));
+      handleClose()
   };
+
+  function rando() {
+    console.log("rando")
+    deleteRSVP()
+    console.log("deleteRSVP")
+    handleClose();
+    console.log("handleClose")
+
+  }
 
   console.log(props.user.displayName)
     return(
@@ -128,7 +154,7 @@ export default function Event(props) {
             </CardActionArea>
             <CardActions>
 
-            {(() => {
+            {/* {(() => {
               switch(RSVP) {
                 case 'true':
                     return(
@@ -144,19 +170,20 @@ export default function Event(props) {
                 case 'false':
                   return(
                     <Button size="small" color="primary"
-                onClick={deleteRSVP}
+                onClick={handleClickOpen}
                 disabled={isRSVPedForThisEvent() === false}  // If they arent RSVPed for this event, dont allow them allow them to delete
               >
                 Delete RSVP
               </Button>
                   )
+
               }
 
-            })}
+            })} */}
             
               {isRSVPedForThisEvent()? (
                 <Button size="small" color="primary"
-                onClick={deleteRSVP}
+                onClick={handleClickOpen}
                 disabled={isRSVPedForThisEvent() === false}  // If they arent RSVPed for this event, dont allow them allow them to delete
               >
                 Delete RSVP
@@ -210,6 +237,28 @@ export default function Event(props) {
 
 
           </Card>
+
+          <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Delete Reservation?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete your FHE Reservation? Your soul mate could be there!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={deleteRSVP} color="primary" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
           </div>
     )
 }
