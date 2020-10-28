@@ -18,6 +18,7 @@ import React, { useState, useEffect } from "react";
 import AppBarComponent from "./AppBar"
 import EventList from "./components/Event"
 import { auth, db } from "./firebase";
+import moment from 'moment';
 
 
 export function App(props) {
@@ -38,6 +39,8 @@ export function App(props) {
     }
     return false
   }
+
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(u => {
@@ -96,7 +99,8 @@ export function App(props) {
               pictureURL: data.pictureURL,
               capacity: data.capacity,
               address: data.address,
-              time: data.time
+              time: data.time,
+              date: data.date.toDate()
             });
           });
           setEvents(updated_events);
@@ -135,14 +139,24 @@ export function App(props) {
     return <div />;
   }
 
-  console.log(admin);
+ 
+  const isInPast = (someDate) => {
+    return(
+      moment() >= moment(someDate)
+    )
+  }
 
   return (
     <div>
       <AppBarComponent user = {user} admin = {admin.admin}/>
       <div style={{ display: "flex", marginTop: 30, flexDirection: "column", alignItems: "center" }}>
-      {events.map(events => {
-        return <EventList user = {user} event = {events} isRSVP = {isRSVPed}/>   // This is currently giving the red warning
+      {events
+      // .filter(date => Date(date.date) - new Date > 0)
+      .filter(value => isInPast(value.date) === false)
+      .map(events => {
+        console.log(events.id)
+        console.log(isInPast(events.date))
+        return <EventList user = {user} event = {events} isRSVP = {isRSVPed} key ={events.id}/>   // This is currently giving the red warning
       })}
       </div>
     </div>
